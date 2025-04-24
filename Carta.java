@@ -21,6 +21,7 @@ public class Carta{
 
 	private int numero;
 	private String color;
+	
 
 	// Constructor de clase
 	// Primer metodo que se ejecuta cuando se genera una instancia
@@ -29,6 +30,10 @@ public class Carta{
 		color = "Rojo";
 	}
 
+	public Carta(String color){
+		this.numero = -1;
+		this.color = color;
+	}
 
 	public Carta(int numero, String color){
 		if(numero >= 0 && numero <=12){

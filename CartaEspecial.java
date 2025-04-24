@@ -2,35 +2,35 @@ public class CartaEspecial{
 
 	private int numeroE;
 
-	private String convertirNumero(){
-		String numeroString = "";
+	public String asignarTipoEspecial(int numeroE){
+		String tipoCartaE = "";
 		switch(numeroE){
-			case 9:
-				numeroString = "Coma 2";
+			case 0:
+				tipoCartaE = "Coma 2";
 			break;
-			case 10:
-				numeroString = "Coma 3";
+			case 1:
+				tipoCartaE = "Coma 3";
 			break;
-			case 11:
-				numeroString = "Cancelar";
+			case 2:
+				tipoCartaE = "Cancelar";
 			break;
-			case 12:
-				numeroString = "Buscar Carta";
+			case 3:
+				tipoCartaE = "Buscar Carta";
 			break;
 			default:
-				numeroString += numeroE;
+				tipoCartaE += numeroE;
 		}
-		return numeroString;
+		return tipoCartaE;
 	}
 
 	public CartaEspecial(int numero){
-		if(numero >= 9 && numero <=12){
+		if(numero >= 0 && numero <=3){
 			this.numeroE = numero;
 		}
 		
 	}
 
-	public void imprimirEspecial(){
-		System.out.println( convertirNumero() + " " );
+	//public void imprimirEspecial(){
+		//System.out.println( convertirNumero() + " " );
 	}
-}
+//}
