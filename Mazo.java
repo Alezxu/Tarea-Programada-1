@@ -1,7 +1,7 @@
 public class Mazo{
 	
 	private Carta [] cartas;
-
+	private int cartasRestantes;
 
 	public Mazo(){
 		cartas = new Carta [88];
@@ -31,6 +31,10 @@ public class Mazo{
 				}
 			}
 		}
+
+		cartasRestantes = 88;
+
+		revolver();
 	}
 
 	private String obtenerColor(int i){
@@ -56,7 +60,7 @@ public class Mazo{
 	public void revolver(){
 		for(int i = 0 ; i < cartas.length ;i++){
 			// Voy a intercambiar i con algo aleatorio
-			int aleatorio = (int)(Math.random() * 52); //[0,1[
+			int aleatorio = (int)(Math.random() * 88); //[0,1[
 			Carta temp = cartas[i];
 			cartas[i] = cartas[aleatorio];
 			cartas[aleatorio] = temp;
@@ -68,4 +72,22 @@ public class Mazo{
 			cartas[i].imprimir();
 		}
 	}
+
+
+	public Carta repartirCartas(int indice){
+		
+			Carta repartida = cartas[indice];
+
+			for(int i = 0; i < cartasRestantes - 1; i++){
+
+				cartas[i] = cartas [i+1];
+			}
+
+			cartas[cartasRestantes - 1] = null;
+			cartasRestantes --;
+
+			return repartida;
+	}
+
+
 }
