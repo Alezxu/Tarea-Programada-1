@@ -68,8 +68,10 @@ public class Mazo{
 	}
 
 	public void imprimir(){
-		for(int i = 0 ; i < cartas.length; i++){
-			cartas[i].imprimir();
+		for(int i = 0 ; i < cartasRestantes; i++){
+			if(cartas[i]!= null){
+				cartas[i].imprimir();
+			}
 		}
 	}
 

@@ -1,12 +1,11 @@
 public class Jugador{
 	private Carta [] manoJugador;
 
-	public void cartasIniciales(){
+	public void cartasIniciales(Mazo mazoJugador){
 		manoJugador = new Carta [88];
-		Mazo mazoJugador = new Mazo();
 
 		for (int i = 0; i < 5; i++){
-			Carta cartaJugador = mazoJugador.repartirCartas(i);
+			Carta cartaJugador = mazoJugador.repartirCartas(0);
 			manoJugador [i] = cartaJugador;
 
 		}
