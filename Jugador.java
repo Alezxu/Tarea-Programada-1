@@ -1,6 +1,8 @@
 public class Jugador{
 	private Carta [] manoJugador;
+	private int contadorCartasRestantes;
 
+	//Metodo que da las primeras 5 cartas del mazo al jugador.
 	public void cartasIniciales(Mazo mazoJugador){
 		manoJugador = new Carta [88];
 
@@ -10,9 +12,9 @@ public class Jugador{
 
 		}
 
-
 	}
 
+	//Imprime las cartas que tiene el jugador
 	public void imprimirJugador(){
 		int contador = 0;
 			while(manoJugador[contador] != null){
@@ -20,5 +22,49 @@ public class Jugador{
 				contador++;
 			}
 		}
+
+
+
+	//Metodo que se usa para verificar si un jugador se queda sin cartas.
+	public boolean verificarVictoria(Carta [] manoJugador){
+		boolean winOrLose = false;
+
+		contadorCartasRestantes = 0;
+		for (int i = 0; i< manoJugador.length; i++){
+			if(manoJugador[i] != null){
+				contadorCartasRestantes ++;
+			}
+		}
+
+		if(contadorCartasRestantes == 0){
+			winOrLose = true;
+		}
+
+		return winOrLose;
 	}
+
+
+	//Este metodo se utiliza para borrar las cartas de la mano del jugador una vez sean jugadas.
+	public Carta descartarCartas(int indice){
+		
+			Carta descartada = manoJugador[indice];
+			manoJugador[indice] = null;
+
+			for(int i = indice; i < contadorCartasRestantes - 1; i++){
+
+				manoJugador[i] = manoJugador [i+1];
+			}
+
+			manoJugador[contadorCartasRestantes - 1] = null;
+			contadorCartasRestantes --;
+
+			return descartada;
+	}
+
+
+
+	public Carta [] getMano(){
+		return manoJugador;
+	}
+}
 

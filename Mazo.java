@@ -1,13 +1,14 @@
 public class Mazo{
-	
+	//Atributos
 	private Carta [] cartas;
 	private int cartasRestantes;
 
+	//Constructor de Mazo
 	public Mazo(){
 		cartas = new Carta [88];
 		int contador = 0;
 
-		//Pone las cartas especiales
+		//Pone las cartas especiales por separado
 
 		for (int tipo = 0; tipo <4; tipo++){
 			for (int i = 0; i <4; i++){
@@ -37,6 +38,7 @@ public class Mazo{
 		revolver();
 	}
 
+	//Asigna los colores dependiendo del indice 
 	private String obtenerColor(int i){
 		String color = "";
 		switch(i){
@@ -57,6 +59,7 @@ public class Mazo{
 	}
 
 
+	//Revuelve el mazo aleatoriamente
 	public void revolver(){
 		for(int i = 0 ; i < cartas.length ;i++){
 			// Voy a intercambiar i con algo aleatorio
@@ -67,6 +70,7 @@ public class Mazo{
 		}
 	}
 
+	//Imprime el mazo, utilizando el imprimir dentro de la clase Carta.
 	public void imprimir(){
 		for(int i = 0 ; i < cartasRestantes; i++){
 			if(cartas[i]!= null){
@@ -76,6 +80,7 @@ public class Mazo{
 	}
 
 
+	//Agarra la primera carta del array. Luego va moviendo todas las cartas a la izquierda, hasta que la ultima queda null
 	public Carta repartirCartas(int indice){
 		
 			Carta repartida = cartas[indice];

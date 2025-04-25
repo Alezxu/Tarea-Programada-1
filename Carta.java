@@ -60,8 +60,26 @@ public class Carta{
 		return this.color;
 	}
 
-	public void imprimir(){
+	/*public void imprimir(){
 		System.out.println( getNumero() + " " + color);
+	} ESTO ESTA COMENTADO PARA IMPRIMIR LAS LISTAS MAS BONITAS PARA EL USUARIO
+		*/
+
+	public void imprimir(){
+		System.out.print("[" + getNumero() + " " + color + "]");
 	}
+
+	
+	//Compara una carta con otra. Verifica que el numero de una carta o el color sea igual para devolver true.
+	public boolean comparar(Carta a){
+		boolean resultado = false;
+
+		if(this.numero == a.getNumero() || this.color.equals(a.getcolor())){
+			resultado = true;
+		}
+		return resultado;
+	}
+
+	
 	
 }
