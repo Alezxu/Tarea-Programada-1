@@ -7,6 +7,7 @@ public class Juego{
 	private Carta mazoEnJuego [];
 	private Jugador player1;
 	private Jugador player2;
+	private Jugador computadora;
 	private Mazo mazoRestante;
 	int cartasEnJuego;
 	private GUI GUI = new GUI();
@@ -19,6 +20,7 @@ public class Juego{
 		player2 = new Jugador();
 		mazoEnJuego = new Carta [88];
 		cartasEnJuego = 0;
+		computadora = new Jugador();
 
 	}
 
@@ -93,6 +95,54 @@ public class Juego{
 
 	}
 
+	public void empezarJuegoPVE(){
+
+		
+
+		//Se reparten las cartas iniciales al jugador y a la computadora
+		player1.cartasIniciales(mazoRestante);
+		computadora.cartasIniciales(mazoRestante);
+
+		//Se pone la carta inicial en la mesa
+		cartaInicial();
+
+		
+		//While que da la logica al juego, se pasa verificando si alguno de los dos jugadores se queda sin cartas, si esto pasa se acaba el juego.
+		while(!(player1.verificarVictoria(player1.getMano())) || !(computadora.verificarVictoria(computadora.getMano()))){
+			GUI.limpiarPantalla();
+
+			System.out.println("\n\nCARTA EN JUEGO");
+			imprimirCartaEnJuego();
+
+			System.out.println("\n**TURNO PLAYER**");
+
+			System.out.println("\n\nCartas BOT");
+			computadora.imprimirJugador();
+
+			System.out.println("\n\nCartas JUGADOR");
+			player1.imprimirJugador();
+
+			cardPlay(player1);
+
+			System.out.println("\n\nCARTA EN JUEGO");
+			imprimirCartaEnJuego();
+
+			System.out.println("\n\nCartas JUGADOR");
+			player1.imprimirJugador();
+
+			System.out.println("\n**TURNO BOT**");
+
+			System.out.println("\n\nCartas BOT");
+			computadora.imprimirJugador();
+
+			cardPlayBot(computadora);
+
+
+
+		}
+		
+	}
+
 
 	//Se asigna la carta inicial con la que se empezara el juego. Se verifica que no se pueda empezar con una carta especial, por medio del numero '-1'.
 	public void cartaInicial(){
@@ -151,6 +201,37 @@ public class Juego{
     		}
 	}
 
+	public void cardPlayBot(Jugador player){
+		try {
+			System.out.println("\nEl bot eligira una carta: ");
+			GUI.pausa();
+			Carta [] manoJugador = player.getMano();
+			int tamanio = player.getTamanioMano();
+			boolean bandera = false;
+			while (bandera){
+				for (int i = 0; i < tamanio; i++){
+					if (manoJugador[i].comparar(getCartaEnJuego())){
+						if(getIndiceCartaEnJuego() < 89){
+							mazoEnJuego[getIndiceCartaEnJuego() + 1] = manoJugador[i];
+		                	player.descartarCartas(i);
+		                	bandera = false;
+						}
+					}  
+				}
+			}
+		} 
+
+		catch(InputMismatchException e){
+	        System.err.println("Opcion Incorrecta.");
+	        GUI.pausa();
+	        GUI.limpiarPantalla();
+		}
+	    catch(ArrayIndexOutOfBoundsException | NullPointerException e){
+	    	System.err.println("Opcion Incorrecta.");                
+	        GUI.pausa();
+	        GUI.limpiarPantalla();
+	    }		
+	}
 
 	//Devuelve el indice del mazo de la ultima carta que se puso, el siguiente espacio sera null.
 	public int getIndiceCartaEnJuego(){

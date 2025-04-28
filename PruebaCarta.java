@@ -18,7 +18,7 @@ public class PruebaCarta{
 
 
 
-		juego.empezarJuegoPVP();
+		juego.empezarJuegoPVE();
 
 		//System.out.println("\nCartas Jugador -  - - - - - - -  -- ");
 		//mano.cartasIniciales(mazo);
