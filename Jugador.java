@@ -62,6 +62,33 @@ public class Jugador{
 	}
 
 
+	public int getTamanioMano (){
+		int indice = 0;
+		while(manoJugador[indice]!= null){
+			indice++;
+		}
+
+		return indice - 1;
+	}
+
+
+	public void coma2(Mazo mazoJugador){
+		for (int i = 0; i < 2; i++){
+			Carta cartaJugador = mazoJugador.repartirCartas(0);
+			int tamanio = getTamanioMano();
+			manoJugador [ tamanio + 1 ] = cartaJugador;
+		}
+	}
+
+
+	public void coma3(Mazo mazoJugador){
+		for (int i = 0; i < 3; i++){
+			Carta cartaJugador = mazoJugador.repartirCartas(0);
+			int tamanio = getTamanioMano();
+			manoJugador [ tamanio + 1 ] = cartaJugador;
+		}
+	}
+
 
 	public Carta [] getMano(){
 		return manoJugador;
