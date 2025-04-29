@@ -207,19 +207,18 @@ public class Juego{
 			GUI.pausa();
 			Carta [] manoJugador = player.getMano();
 			int tamanio = player.getTamanioMano();
-			boolean bandera = false;
-			while (bandera){
-				for (int i = 0; i < tamanio; i++){
-					if (manoJugador[i].comparar(getCartaEnJuego())){
-						if(getIndiceCartaEnJuego() < 89){
-							mazoEnJuego[getIndiceCartaEnJuego() + 1] = manoJugador[i];
-		                	player.descartarCartas(i);
-		                	bandera = false;
+			
+			for (int i = 0; i < tamanio; i++){
+				if (manoJugador[i] != null && manoJugador[i].comparar(getCartaEnJuego())){
+					if(getIndiceCartaEnJuego() < 89){
+						mazoEnJuego[getIndiceCartaEnJuego() + 1] = manoJugador[i];
+			            player.descartarCartas(i);
+
 						}
 					}  
 				}
 			}
-		} 
+		
 
 		catch(InputMismatchException e){
 	        System.err.println("Opcion Incorrecta.");

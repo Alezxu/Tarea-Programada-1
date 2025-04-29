@@ -45,20 +45,22 @@ public class Jugador{
 
 
 	//Este metodo se utiliza para borrar las cartas de la mano del jugador una vez sean jugadas.
-	public Carta descartarCartas(int indice){
-		
-			Carta descartada = manoJugador[indice];
-			manoJugador[indice] = null;
+	public Carta descartarCartas(int indice) {
+	    if (indice < 0 || indice >= manoJugador.length || manoJugador[indice] == null) {
+	        return null;  
+	    }
 
-			for(int i = indice; i < contadorCartasRestantes - 1; i++){
+	    Carta descartada = manoJugador[indice];
 
-				manoJugador[i] = manoJugador [i+1];
-			}
+	    // Mover las cartas hacia la izquierda
+	    for (int i = indice; i < manoJugador.length - 1; i++) {
+	        manoJugador[i] = manoJugador[i + 1];
+	    }
 
-			manoJugador[contadorCartasRestantes - 1] = null;
-			contadorCartasRestantes --;
+	    // La última carta queda null
+	    manoJugador[manoJugador.length - 1] = null;
 
-			return descartada;
+	    return descartada;
 	}
 
 
@@ -68,7 +70,7 @@ public class Jugador{
 			indice++;
 		}
 
-		return indice - 1;
+		return indice;
 	}
 
 
