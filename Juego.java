@@ -10,7 +10,7 @@ public class Juego{
 	private Jugador computadora;
 	private Mazo mazoRestante;
 	int cartasEnJuego;
-	//private GUI GUI = new GUI();
+	//GUI GUI = new GUI();
 	Scanner input = new Scanner(System.in);
 	private int comaMaximo = 0;
 	private int cantidadComer = 0;
@@ -163,12 +163,12 @@ public class Juego{
 		
 		//While que da la logica al juego, se pasa verificando si alguno de los dos jugadores se queda sin cartas, si esto pasa se acaba el juego.
 		while(!(player1.verificarVictoria(player1.getMano())) && !(computadora.verificarVictoria(computadora.getMano()))){
+			
 			GUI.limpiarPantalla();
-
 			System.out.println("\n\nCARTA EN JUEGO");
 			imprimirCartaEnJuego();
 
-			System.out.println("\n**TURNO PLAYER**");
+			System.out.println("\n\n**TURNO PLAYER**");
 
 			System.out.println("\n\nCartas BOT");
 			computadora.imprimirJugador();
@@ -178,13 +178,15 @@ public class Juego{
 
 			cardPlay(player1 , computadora);
 
+			
+ 			GUI.limpiarPantalla();
 			System.out.println("\n\nCARTA EN JUEGO");
 			imprimirCartaEnJuego();
 
+			System.out.println("\n**TURNO BOT**");
+
 			System.out.println("\n\nCartas JUGADOR");
 			player1.imprimirJugador();
-
-			System.out.println("\n**TURNO BOT**");
 
 			System.out.println("\n\nCartas BOT");
 			computadora.imprimirJugador();
@@ -286,7 +288,7 @@ public class Juego{
 				}
  
  
-                 System.out.println("\nElija una carta: ");
+                System.out.println("\nElija una carta: ");
  				opcion = input.nextInt() - 1;
  				input.nextLine();
  

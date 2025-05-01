@@ -2,6 +2,7 @@
 public class PruebaCarta{
 	public static void main (String [] args){
 		Juego juego = new Juego();
+		GUI gui = new GUI();
 		//Jugador mano = new Jugador();
 		//Mazo mazo = new Mazo();
 		

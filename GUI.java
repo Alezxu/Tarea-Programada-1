@@ -4,6 +4,7 @@ import java.util.InputMismatchException;
 
 
 public class GUI{
+    Juego juego = new Juego();
 
     public static void limpiarPantalla() {
         try {
@@ -17,8 +18,7 @@ public class GUI{
         input.nextLine();
     }
 
-    public static void menuPrincipal(){
-        Juego juego = new Juego();
+    public void menuPrincipal(){
         boolean bandera = true;
         boolean banderaVolver = true;
         Scanner input = new Scanner(System.in);
