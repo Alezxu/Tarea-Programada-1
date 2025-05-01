@@ -96,5 +96,18 @@ public class Mazo{
 			return repartida;
 	}
 
+	public Carta tomarCartaPila(int indice){
 
+		Carta cartaTomada = cartas[indice];
+
+		for (int i = 0; i < cartasRestantes - 1; i++){
+				cartas[i] = cartas [i+1];	
+		}
+
+		cartas[cartasRestantes - 1] = null;
+		cartasRestantes --;
+
+		return cartaTomada;
+
+	}
 }

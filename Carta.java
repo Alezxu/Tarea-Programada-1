@@ -69,6 +69,11 @@ public class Carta{
 		System.out.print("[" + getNumero() + " " + color + "]");
 	}
 
+	public String imprimir2(){
+		String impresion = "[" + getNumero() + " " + color + "]";
+		return impresion;
+	}
+
 	
 	//Compara una carta con otra. Verifica que el numero de una carta o el color sea igual para devolver true.
 	public boolean comparar(Carta a){

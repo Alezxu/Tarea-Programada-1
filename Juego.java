@@ -71,8 +71,7 @@ public class Juego{
 
 			cardPlay(player2, player1);
 
-			
-
+			imprimirMazoEnJuego();
 
 
 
@@ -174,7 +173,7 @@ public class Juego{
 	public void imprimirMazoEnJuego(){
 		int contador = 0;
 			while(mazoEnJuego[contador] != null){
-				mazoEnJuego[contador].imprimir();
+				System.out.println((contador + 1) + "." + mazoEnJuego[contador].imprimir2());
 				contador++;
 			}
 		}
@@ -228,7 +227,11 @@ public class Juego{
                 		case -2:
                 			comaMaximo = 2;
                 			cantidadComer +=2;
-							
+						break;
+
+						case -3:
+							comaMaximo = 3;
+							cantidadComer += 3;
 						break;
 
                 		}
@@ -331,4 +334,15 @@ public class Juego{
 
 	}
 
+	public void buscarCarta (){
+		
+		imprimirMazoEnJuego();
+		System.out.println("\nElija una carta del mazo: ");
+		int opcion = input.nextInt() -1;
+        input.nextLine(); 
+		Carta cartaBuscada = mazoEnJuego [opcion]
+		
+		
+
+	}
 }
