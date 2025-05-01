@@ -58,7 +58,7 @@ public class Juego{
 			System.out.println("\n\nCartas JUGADOR 1");
 			player1.imprimirJugador();
 
-			cardPlay(player1);
+			cardPlay(player1 , player2);
 
 			
 
@@ -122,7 +122,7 @@ public class Juego{
 			System.out.println("\n\nCartas JUGADOR");
 			player1.imprimirJugador();
 
-			cardPlay(player1);
+			cardPlay(player1 , computadora);
 
 			System.out.println("\n\nCARTA EN JUEGO");
 			imprimirCartaEnJuego();
@@ -147,8 +147,8 @@ public class Juego{
 	//Se asigna la carta inicial con la que se empezara el juego. Se verifica que no se pueda empezar con una carta especial, por medio del numero '-1'.
 	public void cartaInicial(){
 		Carta cartaI = mazoRestante.repartirCartas(0);
-		while(cartaI.getNumero() == -1){
-			mazoRestante.revolver();
+		while(cartaI.getNumero() <= -2 && cartaI.getNumero() >= -5){
+			mazoRestante.revolver();  
 
 			cartaI = mazoRestante.repartirCartas(0);
 		}
@@ -170,19 +170,61 @@ public class Juego{
 
 
 	//Metodo principal para jugar, se recibe un jugador como parametro, para organizar los turnos. 
-	public void cardPlay(Jugador player){
+	public void cardPlay(Jugador playerActual , Jugador playerRival){
 		try {
 				System.out.println("\nElija una carta: ");
 				int opcion = input.nextInt() -1;
                 input.nextLine(); 
-                Carta [] manoJugador = player.getMano();
+                Carta [] manoJugador = playerActual.getMano();
 
-                if(manoJugador[opcion].comparar(getCartaEnJuego())){
-                	if(getIndiceCartaEnJuego() < 89){
-                		mazoEnJuego[getIndiceCartaEnJuego() + 1] = manoJugador[opcion];
-                		player.descartarCartas(opcion);
+                if(manoJugador[opcion].comparar(getCartaEnJuego()) || manoJugador[opcion].esCartaEspecial()){
+
+                	if(manoJugador[opcion].esCartaEspecial()){
+                		switch(manoJugador[opcion].getNumero()){
+
+                		case -2:
+                			int cantidadComa2 = 1;
+							if(getIndiceCartaEnJuego() < 89){
+                				mazoEnJuego[getIndiceCartaEnJuego() + 1] = manoJugador[opcion];
+                				playerActual.descartarCartas(opcion);
+
+                			}
+
+                			boolean tieneCome2 = false;
+                			Carta [] manoRival = playerRival.getMano();
+                			int tamanioRival = playerRival.getTamanioMano();
+
+                			for(int i = 0; i< tamanioRival; i++){
+                				if(manoRival[i] != null && manoRival[i].getNumero() == -2){
+                					if(getIndiceCartaEnJuego() < 89){
+                						mazoEnJuego[getIndiceCartaEnJuego() + 1] = manoRival[i];
+                						playerRival.descartarCartas(i);
+                						cantidadComa2 ++;
+                						
+
+                					}
+
+                				}
+                			}
+
+
+
+
+                			break;
+
+                		}
 
                 	}
+
+                	if(getIndiceCartaEnJuego() < 89){
+                		mazoEnJuego[getIndiceCartaEnJuego() + 1] = manoJugador[opcion];
+                		playerActual.descartarCartas(opcion);
+
+                	}
+
+
+
+
                 	
                 }  //else if() ESTO VA A SER SI NO PONE UNA CARTA VALIDA. TAMBIEN HAY QUE HACER UNA VERIFICACION SI QUIERA TIENE CARTAS VALIDAS, O SE PODRIA HACER QUE MANUALMENTE TENGA QUE DECIDIR COMER
 

@@ -36,9 +36,9 @@ public class Carta{
 	}
 
 	public Carta(int numero, String color){
-		if(numero >= 0 && numero <=12){
+		//if(numero >= 0 && numero <=12){
 			this.numero = numero;
-		}
+		//}
 		this.color = color;
 	}
 
@@ -80,6 +80,18 @@ public class Carta{
 		return resultado;
 	}
 
-	
-	
+
+	public boolean esCartaEspecial(){
+		boolean resultado = false;
+
+		if(this.numero <= -2 && this.numero >= -5){
+			resultado = true;
+		}
+
+		return resultado;
+
+	}
 }
+
+	
+	

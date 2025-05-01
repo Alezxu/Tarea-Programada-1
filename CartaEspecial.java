@@ -5,16 +5,16 @@ public class CartaEspecial{
 	public String asignarTipoEspecial(int numeroE){
 		String tipoCartaE = "";
 		switch(numeroE){
-			case 0:
+			case 2:
 				tipoCartaE = "Coma 2";
 			break;
-			case 1:
+			case 3:
 				tipoCartaE = "Coma 3";
 			break;
-			case 2:
+			case 4:
 				tipoCartaE = "Cancelar";
 			break;
-			case 3:
+			case 5:
 				tipoCartaE = "Buscar Carta";
 			break;
 			default:

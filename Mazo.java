@@ -10,13 +10,13 @@ public class Mazo{
 
 		//Pone las cartas especiales por separado
 
-		for (int tipo = 0; tipo <4; tipo++){
+		for (int tipo = 2; tipo < 6; tipo++){
 			for (int i = 0; i <4; i++){
 
 				CartaEspecial cartaE = new CartaEspecial(tipo);
 				String stringEspecial = cartaE.asignarTipoEspecial(tipo);
 
-				Carta especial = new Carta(stringEspecial);
+				Carta especial = new Carta(tipo *-1 , stringEspecial);
 				cartas [contador] = especial;
 				contador++;
 			}
