@@ -1,6 +1,6 @@
 import java.util.Scanner;
 import java.util.InputMismatchException;
-
+import java.lang.Math;
 
 
 public class Juego{
@@ -49,7 +49,7 @@ public class Juego{
 		player2.imprimirJugador();
 
 		//While que da la logica al juego, se pasa verificando si alguno de los dos jugadores se queda sin cartas, si esto pasa se acaba el juego.
-		while(!(player1.verificarVictoria(player1.getMano())) || !(player2.verificarVictoria(player2.getMano()))){
+		while(!(player1.verificarVictoria(player1.getMano())) && !(player2.verificarVictoria(player2.getMano()))){
 			//GUI.limpiarPantalla();
 
 			System.out.println("\n\nCARTA EN JUEGO");
@@ -119,7 +119,7 @@ public class Juego{
 
 		
 		//While que da la logica al juego, se pasa verificando si alguno de los dos jugadores se queda sin cartas, si esto pasa se acaba el juego.
-		while(!(player1.verificarVictoria(player1.getMano())) || !(computadora.verificarVictoria(computadora.getMano()))){
+		while(!(player1.verificarVictoria(player1.getMano())) && !(computadora.verificarVictoria(computadora.getMano()))){
 			GUI.limpiarPantalla();
 
 			System.out.println("\n\nCARTA EN JUEGO");
@@ -184,211 +184,240 @@ public class Juego{
 
 
 	//Metodo principal para jugar, se recibe un jugador como parametro, para organizar los turnos. 
+
 	public void cardPlay(Jugador playerActual , Jugador playerRival){
-		try {
-
-			Carta [] manoJugador = playerActual.getMano();
-			int opcion;
-			boolean cartaValida = false;
-			boolean cartaParaJugar = false;
-
-
-				if(cantidadComer > 0){
-					boolean tieneCome = false;
-
-					for(int i = 0; i < playerActual.getTamanioMano(); i++){
-						if(manoJugador[i] != null && manoJugador[i].esCartaEspecial()){
-							if (manoJugador[i].getNumero() <= comaMaximo){
-									tieneCome = true;
-									break;
-							}
-						}
-					}
-
-
-					if(!tieneCome){
-						playerActual.coma(mazoRestante, cantidadComer);
-						cantidadComer = 0;
-						comaMaximo = 0;
-						System.out.println("\nCOMIO");
-						System.out.println("\n\nCartas JUGADOR XX");
-						playerActual.imprimirJugador();
-						GUI.pausa();
-						return;
-					}
-					
-
-				}
-
-
-                System.out.println("\nElija una carta: ");
-				opcion = input.nextInt() - 1;
-				input.nextLine();
-
-
-				
-				/*
-				for(int i = 0; i < playerActual.getTamanioMano(); i++){
-					if(manoJugador[i] != null) {
-
-						if(getCartaEnJuego().esCartaEspecial() || manoJugador[i].comparar(getCartaEnJuego()) || manoJugador[i].esCartaEspecial()){
-							break; 
-						}
-					}
-				}*/
-
-                while(!cartaValida){
-					
-
-					if(opcion >= 0 && opcion < playerActual.getTamanioMano()){
-						if(manoJugador[opcion].comparar(getCartaEnJuego()) || manoJugador[opcion].esCartaEspecial() || getCartaEnJuego().esCartaEspecial()){
-							cartaValida = true;
-						}
-
-
-						else {
-							System.out.println("\nError, seleccione una carta valida...\n");
-							GUI.pausa();
-							
-
-							System.out.println("\nElija una carta: ");
-							opcion = input.nextInt() - 1;
-							input.nextLine();
-						}
-
-
-					} else {
-						System.out.println("\nError, seleccione una carta valida...\n");
-						GUI.pausa();
-						
-							
-						System.out.println("\nElija una carta: ");
-						opcion = input.nextInt() - 1;
-						input.nextLine();
-					}
-
-                }
-                
-                if(getCartaEnJuego().esCartaEspecial()){
-                	
-                	if(getIndiceCartaEnJuego() < 89){
-                		mazoEnJuego[getIndiceCartaEnJuego() + 1] = manoJugador[opcion];
-                		playerActual.descartarCartas(opcion);
-
-                	}
-
-                }
-
-
-                else if(manoJugador[opcion].comparar(getCartaEnJuego()) || manoJugador[opcion].esCartaEspecial()){
-
-
-
-                	if(manoJugador[opcion].esCartaEspecial()){
-                		switch(manoJugador[opcion].getNumero()){
-
-                		case -2:
-                			if(comaMaximo == 0 || comaMaximo == -2){
-	                			comaMaximo = -2;
-	                			cantidadComer += 2;
-                			}
-						break;
-
-						case -3:
-							comaMaximo = -3;
-							cantidadComer = cantidadComer + 3;
-						break;
-
-
-						case -4:
-							if(comaMaximo == 0 || comaMaximo == -2){
-	                			comaMaximo = -2;
-	                			cantidadComer += 2;
-                			}
-						break;
-
-
-						case -5:
-							comaMaximo = -3;
-							cantidadComer = cantidadComer + 3;
-						break;
-
-                		}
-
-                	}
-
-                	if(getIndiceCartaEnJuego() < 89){
-                		mazoEnJuego[getIndiceCartaEnJuego() + 1] = manoJugador[opcion];
-                		playerActual.descartarCartas(opcion);
-
-                	}
-
-
-
-
-                	
-                }  
-
-
-               
-
-                else {//if (!(manoJugador[opcion].comparar(getCartaEnJuego())) || !(manoJugador[opcion].esCartaEspecial())){
-
-                	System.out.println("\nNo tiene cartas validas... \nComiendo carta...");
-                	GUI.pausa();
-                	playerActual.coma(mazoRestante, 1);
-                	System.out.println("Se acaba su turno...");
-                }
-
-
-
-			} 
-			catch(InputMismatchException e){
-                System.err.println("Opcion Incorrecta.");
-                GUI.pausa();
-                GUI.limpiarPantalla();
-
-    		} 
-    		catch(ArrayIndexOutOfBoundsException | NullPointerException e){
-    			System.err.println("Opcion Incorrecta.");                
-                GUI.pausa();
-                GUI.limpiarPantalla();
-    		}
-	}
+ 		try {
+ 
+ 			Carta [] manoJugador = playerActual.getMano();
+ 			int opcion;
+ 			boolean cartaValida = false;
+ 
+ 
+ 				if(cantidadComer > 0){
+ 					boolean tieneCome = false;
+ 
+ 					for(int i = 0; i < playerActual.getTamanioMano(); i++){
+ 						if(manoJugador[i] != null && manoJugador[i].esCartaEspecial()){
+ 							if (manoJugador[i].getNumero() == comaMaximo){
+ 									tieneCome = true;
+ 							}
+ 						}
+ 					}
+ 
+ 
+ 					if(!tieneCome){
+ 						playerActual.coma(mazoRestante, cantidadComer);
+ 						cantidadComer = 0;
+ 						comaMaximo = 0;
+ 						System.out.println("\nCOMIO");
+ 						System.out.println("\n\nCartas JUGADOR XX");
+ 						playerActual.imprimirJugador();
+ 						GUI.pausa();
+ 						return;
+ 					}
+ 
+ 
+ 				}
+ 
+ 
+                 System.out.println("\nElija una carta: ");
+ 				opcion = input.nextInt() - 1;
+ 				input.nextLine();
+ 
+                 while(!cartaValida){
+ 
+ 
+ 					if(opcion >= 0 && opcion < playerActual.getTamanioMano()){
+ 						if(manoJugador[opcion].comparar(getCartaEnJuego()) || manoJugador[opcion].esCartaEspecial() || getCartaEnJuego().esCartaEspecial()){
+ 							cartaValida = true;
+ 						}
+ 
+ 						else {
+ 							System.out.println("\nError, seleccione una carta valida...\n");
+ 							GUI.pausa();
+ 							GUI.limpiarPantalla();
+ 
+ 							System.out.println("\nElija una carta: ");
+ 							opcion = input.nextInt() - 1;
+ 							input.nextLine();
+ 						}
+ 
+ 
+ 					} else {
+ 						System.out.println("\nError, seleccione una carta valida...\n");
+ 						GUI.pausa();
+ 						GUI.limpiarPantalla();
+ 
+ 						System.out.println("\nElija una carta: ");
+ 						opcion = input.nextInt() - 1;
+ 						input.nextLine();
+ 					}
+ 
+                 }
+ 
+                 if(getCartaEnJuego().esCartaEspecial()){
+ 
+                 	if(getIndiceCartaEnJuego() < 89){
+                 		mazoEnJuego[getIndiceCartaEnJuego() + 1] = manoJugador[opcion];
+                 		playerActual.descartarCartas(opcion);
+ 
+                 	}
+ 
+                 }
+ 
+ 
+                 else if(manoJugador[opcion].comparar(getCartaEnJuego()) || manoJugador[opcion].esCartaEspecial()){
+ 
+ 
+ 
+                 	if(manoJugador[opcion].esCartaEspecial()){
+                 		switch(manoJugador[opcion].getNumero()){
+ 
+                 		case -2:
+                 			comaMaximo = -2;
+                 			cantidadComer +=2;
+ 						break;
+ 
+ 						case -3:
+ 							comaMaximo = -3;
+ 							cantidadComer += 3;
+ 						break;
+ 
+ 
+ 						case -4:
+ 							cancelarComa(); // Cancela la cadena de comer si está activa
+        					break;
+ 
+ 
+ 						case -5:
+ 							buscarCarta(playerActual); // Permite al jugador tomar una carta de la pila
+       						break;
+ 
+                 		}
+ 
+                 	}
+ 
+                 	if(getIndiceCartaEnJuego() < 89){
+                 		mazoEnJuego[getIndiceCartaEnJuego() + 1] = manoJugador[opcion];
+                 		playerActual.descartarCartas(opcion);
+                 		cartasEnJuego ++;
+ 
+                 	}
+ 
+ 
+ 
+ 
+ 
+                 }  
+ 
+ 
+ 
+ 
+                 else {//if (!(manoJugador[opcion].comparar(getCartaEnJuego())) || !(manoJugador[opcion].esCartaEspecial())){
+ 
+                 	System.out.println("\nNo tiene cartas validas... \nComiendo carta...");
+                 	GUI.pausa();
+                 	playerActual.coma(mazoRestante, 1);
+                 	System.out.println("Se acaba su turno...");
+                 }
+ 
+ 
+ 
+ 			} catch(InputMismatchException e){
+                 System.err.println("Opcion Incorrecta.");
+                 GUI.pausa();
+                 GUI.limpiarPantalla();
+ 
+     		} catch(ArrayIndexOutOfBoundsException | NullPointerException e){
+     			System.err.println("Opcion Incorrecta.");                
+                 GUI.pausa();
+                 GUI.limpiarPantalla();
+     		}
+ 	}
 
 	
 
 
-	public void cardPlayBot(Jugador player){
-		try {
-			System.out.println("\nEl bot eligira una carta: ");
-			GUI.pausa();
-			Carta [] manoJugador = player.getMano();
-			int tamanio = player.getTamanioMano();
-			
-			for (int i = 0; i < tamanio; i++){
-				if (manoJugador[i] != null && manoJugador[i].comparar(getCartaEnJuego())){
-					if(getIndiceCartaEnJuego() < 89){
-						mazoEnJuego[getIndiceCartaEnJuego() + 1] = manoJugador[i];
-			            player.descartarCartas(i);
+	public void cardPlayBot(Jugador player) {
+    try {
+        System.out.println("\nEl bot está eligiendo una carta...");
+        GUI.pausa();
 
-						}
-					}  
-				}
-			}
-		
+        Carta[] manoJugador = player.getMano();
+        int tamanio = player.getTamanioMano();
+        boolean jugoCarta = false;
 
-		catch(InputMismatchException e){
-	        System.err.println("Opcion Incorrecta.");
-	        GUI.pausa();
-	        GUI.limpiarPantalla();
-		}
-	    catch(ArrayIndexOutOfBoundsException | NullPointerException e){
-	    	System.err.println("Opcion Incorrecta.");                
-	        GUI.pausa();
-	        GUI.limpiarPantalla();
-	    }		
-	}
+        
+        if (cantidadComer > 0) {
+            boolean tieneCome = false;
+
+            for (int i = 0; i < tamanio; i++) {
+                if (manoJugador[i] != null && manoJugador[i].esCartaEspecial()) {
+                    if (manoJugador[i].getNumero() == comaMaximo) {
+                        tieneCome = true;
+                        break;
+                    }
+                }
+            }
+
+            if (!tieneCome) {
+                player.coma(mazoRestante, cantidadComer);
+                cantidadComer = 0;
+                comaMaximo = 0;
+                System.out.println("BOT COMIO " + cantidadComer + " CARTAS.");
+                return;
+            }
+        }
+
+        for (int i = 0; i < tamanio; i++) {
+            Carta carta = manoJugador[i];
+
+            if (carta != null && (carta.comparar(getCartaEnJuego()) || carta.esCartaEspecial() || getCartaEnJuego().esCartaEspecial())) {
+
+                // Aplica el efecto de la carta especial si es necesario
+                if (carta.esCartaEspecial()) {
+                    switch (carta.getNumero()) {
+                        case -2:
+                            comaMaximo = -2;
+                            cantidadComer += 2;
+                            break;
+                        case -3:
+                            comaMaximo = -3;
+                            cantidadComer += 3;
+                            break;
+                        case -4:
+                            cancelarComa();
+                            break;
+                        case -5:
+                            buscarCartaBot(player);
+                            break;
+                    }
+                }
+
+                if (getIndiceCartaEnJuego() < 89) {
+                    mazoEnJuego[getIndiceCartaEnJuego() + 1] = carta;
+                    player.descartarCartas(i);
+                    cartasEnJuego++;
+                    System.out.println("BOT JUGO: " + carta);
+                    jugoCarta = true;
+                    break;
+                }
+            }
+        }
+
+        // Si no pudo jugar ninguna carta válida
+        if (!jugoCarta) {
+            System.out.println("BOT NO TIENE CARTAS VALIDAS. COMIENDO UNA CARTA...");
+            GUI.pausa();
+            player.coma(mazoRestante, 1);
+        }
+
+    } catch (Exception e) {
+        System.err.println("Error en la jugada del bot: " + e.getMessage());
+        GUI.pausa();
+        GUI.limpiarPantalla();
+    }
+}
 
 	//Devuelve el indice del mazo de la ultima carta que se puso, el siguiente espacio sera null.
 	public int getIndiceCartaEnJuego(){
@@ -467,6 +496,34 @@ public class Juego{
  	        } 
  	        else {
  	            System.out.println("\nNo puedes agregar más cartas a tu mano");
+ 	        }
+ 	    } 
+ 	    else {
+ 	        System.out.println("\nCarta no válida o fuera de la pila");
+     	}
+ 	}
+
+ 	public void buscarCartaBot(Jugador jugador) {
+     	imprimirMazoEnJuego();
+ 
+ 	    System.out.println("\nElija una carta de la pila para agregar a su mano: ");
+ 	    int min = 0; 
+ 	    int rango = ((cartasEnJuego - 1) - min) + 1;
+ 	    int opcion = (int)((rango * Math.random()) + min);
+ 	      
+ 	    
+ 	    Carta cartaBuscada = tomarCartaPila(opcion);  
+ 
+ 	    if (cartaBuscada != null) {
+ 	        int tamanioMano = jugador.getTamanioMano();
+ 	        Carta[] mano = jugador.getMano();
+ 
+ 	        if (tamanioMano < mano.length) {
+ 	            mano[tamanioMano] = cartaBuscada;
+ 	            System.out.println("\nCarta agregada a la mano correctamente");
+ 	        } 
+ 	        else {
+ 	            System.out.println("\nNo se puede agregar más cartas a la mano");
  	        }
  	    } 
  	    else {

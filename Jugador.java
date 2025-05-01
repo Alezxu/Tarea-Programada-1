@@ -77,7 +77,7 @@ public class Jugador{
 
 	public void coma(Mazo mazoJugador, int cantidadPorComer){
 		for (int i = 0; i < cantidadPorComer ; i++){
-			Carta cartaJugador = mazoJugador.repartirCartas(i);
+			Carta cartaJugador = mazoJugador.repartirCartas(0);
 			int tamanio = getTamanioMano();
 			if(tamanio < manoJugador.length){
 				manoJugador [ tamanio ] = cartaJugador;
