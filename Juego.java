@@ -327,7 +327,7 @@ public class Juego{
 	}
 
 	public void cancelarComa (Carta cartaEnJuego){
-		cartaEnJuego = new Carta (getCartaEnJuego());
+		cartaEnJuego = getCartaEnJuego();
 		if (cartaEnJuego.getNumero() == -2 || cartaEnJuego.getNumero() == -3){
 			cantidadComer = 0;
 		}
@@ -341,7 +341,7 @@ public class Juego{
 		int opcion = input.nextInt() -1;
         input.nextLine(); 
 		Carta cartaBuscada = mazoEnJuego [opcion]
-		
+
 		
 
 	}
