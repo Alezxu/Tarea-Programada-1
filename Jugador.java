@@ -27,20 +27,15 @@ public class Jugador{
 
 	//Metodo que se usa para verificar si un jugador se queda sin cartas.
 	public boolean verificarVictoria(Carta [] manoJugador){
-		boolean winOrLose = false;
+		
 
-		contadorCartasRestantes = 0;
-		for (int i = 0; i< manoJugador.length; i++){
-			if(manoJugador[i] != null){
-				contadorCartasRestantes ++;
+		for (Carta carta : manoJugador){
+			if(carta != null){
+				return false;
 			}
 		}
 
-		if(contadorCartasRestantes == 0){
-			winOrLose = true;
-		}
-
-		return winOrLose;
+		return true;
 	}
 
 
