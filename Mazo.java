@@ -95,6 +95,9 @@ public class Mazo{
 
 			return repartida;
 	}
-
+	
+	public int getCartasRestantes(){
+		return cartasRestantes;
+	}
 
 }

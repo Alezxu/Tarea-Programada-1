@@ -1,0 +1,21 @@
+Manual de Usuario!!!
+
+IMPORTANTE -----> Este juego debe ser ejecutado en CMD o en VSCODE, ya que el scanner no funciona en Sublime Text
+
+Bienvenidos al juego Uno y Medio!! 
+
+Este juego consiste en un 1vs1 ya sea con la computadora misma o un rival real, mediante el menu principal que se ejecuta al iniciar el juego podrás seleccionar el modo de juego, además en este podrás ver un espacio con las reglas.
+
+Para jugar es bastante sencillo, al iniciar se te daran 5 cartas a ti y a tu rival, en base a eso se tira una carta inicial del mazo restante y COMIENZA EL JUEGO!
+
+La idea principal es quien se quede primero sin cartas, así que planea tus estrategias...
+
+Para seleccionar las cartas es muy sencillo e intuitivo, verás un panel con las cartas enumeradas con numeros, simplemente escribe el numero de la carta que deseas jugar y esta será jugada.
+
+Hay distintos tipos de cartas que las verás en el juego, tales como:
+
+Cartas normales: Estan enumeradas del 0 al 8 y tienen colores especificos (naranja, azul, verde, rojo), en base a estas cartas deberás seleccionar una carta que almenos posea 1 de estas características igual que la carta que esta en juego, por ejemplo: CARTA EN JUEGO = 2 Rojo ----> en este caso podrias tirar cualquier carta de cualquier color mientras cumpla con la característica de poseer el numero 2, si  no es asi puedes tirar cualquier carta con cualquier numero mientras la carta sea de color rojo.
+
+Cartas especiales: Estan enumeradas del -2 al -5 y no poseen color, estas cartas poseen funcionalidades especificas, siendo el -2 un COMA 2, carta que hace que el jugador rival se coma 2 cartas del mazo que no esta en juego, el -3 es un COMA 3, carta que hace que el jugador rival se coma 3 cartas del mazo que no esta en juego, el -4 es el CANCELAR, basicamente esta carta lo que hace es bloquear cualquier coma, si tiras un coma 2 y luego el rival un cancelar, este no comera cartas, por último el -5 que es el BUSCAR CARTA, esta carta lo que hace es que el jugador que la utilice sea capaz de tomar una carta de la pila de cartas ya anteriormente jugadas, por ejemplo se habian tirado 3 cartas (1 rojo) (2 azul) (4 naranja) y el jugador decide seleccionar la carta naranja, entonces este la toma y la guarda en su mazo, permitiendole jugarla en ese instante o almacenarla.
+
+Si un jugador no tiene una carta que poner, comerá de la pila de cartas, finalizará su turno y continuará el siguiente jugador.

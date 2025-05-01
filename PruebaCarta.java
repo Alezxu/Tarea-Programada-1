@@ -1,5 +1,5 @@
 //ESTO ES SOLO UNA CLASE PARA HACER PRUEBAS
-public class PruebaCarta{
+/*  public class PruebaCarta{
 	public static void main (String [] args){
 		Juego juego = new Juego();
 		GUI gui = new GUI();
@@ -39,4 +39,4 @@ public class PruebaCarta{
 		//System.out.println(aleatorio);
 	}
 
-}
+} */
