@@ -1,9 +1,22 @@
+//! \class Clase Mazo del mazo de cartas
+/*! 
+ * Clase que crea los mazos para almacenar las cartas del juego
+ */
+
+
 public class Mazo{
 	//Atributos
-	private Carta [] cartas;
-	private int cartasRestantes;
+	private Carta [] cartas;  /*!< Array de Cartas */
+	private int cartasRestantes; /*!< Contador de las cartas restantes */
 
-	//Constructor de Mazo
+	/*! \brief Constructor por omision
+	 * 
+	 * Primero se agregan las cartas especiales por separado, y luego las cartas regulares.
+	 * 
+	 * Al final se devuelve el mazo revuelto.
+	 * 
+	 */
+
 	public Mazo(){
 		cartas = new Carta [88];
 		int contador = 0;
@@ -38,6 +51,11 @@ public class Mazo{
 		revolver();
 	}
 
+	/*! \brief Se devuelve el color a la carta dependiendo del indice.
+	 * \param int el indice con el que se seleccionara el color
+	 * \return String color de la carta
+	 */
+
 	//Asigna los colores dependiendo del indice 
 	private String obtenerColor(int i){
 		String color = "";
@@ -59,6 +77,10 @@ public class Mazo{
 	}
 
 
+
+	/*!\brief Metodo que revuelve el mazo, utiliza un indice random y se van moviendo las cartas.
+	 * 
+	 */
 	//Revuelve el mazo aleatoriamente
 	public void revolver(){
 		for(int i = 0 ; i < cartas.length ;i++){
@@ -70,6 +92,9 @@ public class Mazo{
 		}
 	}
 
+
+	/*! \brief Metodo que imprime un mazo, utilizando el imprimir dentro de Carta.
+	 */
 	//Imprime el mazo, utilizando el imprimir dentro de la clase Carta.
 	public void imprimir(){
 		for(int i = 0 ; i < cartasRestantes; i++){
@@ -79,8 +104,12 @@ public class Mazo{
 		}
 	}
 
-
-	//Agarra la primera carta del array. Luego va moviendo todas las cartas a la izquierda, hasta que la ultima queda null
+	/*! \brief Agarra la primera carta del array. Luego va moviendo todas las cartas a la izquierda, hasta que la ultima queda null, Devuelve la Carta Repartida
+	 * 
+	 * \param int utiliza un indice por el usuario para buscar la carta.
+	 * \return Carta carta repartida
+	 */
+	
 	public Carta repartirCartas(int indice){
 		
 			Carta repartida = cartas[indice];
@@ -95,6 +124,10 @@ public class Mazo{
 
 			return repartida;
 	}
+
+	/*!\brief Retorna las cartas que quedan en el mazo
+	 * \return int cartas restantes.
+	 */
 	
 	public int getCartasRestantes(){
 		return cartasRestantes;

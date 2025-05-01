@@ -2,22 +2,34 @@
 import java.util.Scanner;
 import java.util.InputMismatchException;
 
-
+//! \class Clase GUI
+/*! 
+ * Clase que crea los menus y llama a los juegos
+ */
 public class GUI{
     Juego juego = new Juego();
 
+    /*! \brief Metodo para borrar todo lo anteriormente impreso en pantalla
+     */
     public static void limpiarPantalla() {
         try {
             new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
         } catch(Exception ex){}
     }
 
+    /*! \brief Metodo para dejar una pausa y que el usuario avance cuando quiera.
+     */
     public static void pausa(){
         Scanner input = new Scanner(System.in);
         System.out.println("Digite ENTER para continuar...");
         input.nextLine();
     }
 
+
+    /*! \brief Menu Principal del juego
+     * 
+     * Llama a los metodos para poder jugar.
+     */
     public void menuPrincipal(){
         boolean bandera = true;
         boolean banderaVolver = true;
@@ -86,7 +98,8 @@ public class GUI{
 }
 }
 
-
+    /*! \brief Metodo para verificar si el jugador quiere volver a jugar sin necesidad de salirse al menu principal.
+     */
     public static boolean volverAJugar(){
         Scanner input = new Scanner(System.in);
         try{
