@@ -304,5 +304,12 @@ public class Juego{
 		actual.imprimir();
 	}
 
+	public void cancelarComa (Carta cartaEnJuego){
+		cartaEnJuego = new Carta (getCartaEnJuego());
+		if (cartaEnJuego.getNumero() == -2 || cartaEnJuego.getNumero() == -3){
+			
+		}
+
+	}
 
 }
