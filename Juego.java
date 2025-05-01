@@ -73,7 +73,7 @@ public class Juego{
 
 			imprimirMazoEnJuego();
 
-
+			
 
 
 		}
@@ -241,6 +241,7 @@ public class Juego{
                 	if(getIndiceCartaEnJuego() < 89){
                 		mazoEnJuego[getIndiceCartaEnJuego() + 1] = manoJugador[opcion];
                 		playerActual.descartarCartas(opcion);
+                		cartasEnJuego ++;
 
                 	}
 
@@ -277,7 +278,7 @@ public class Juego{
 					if(getIndiceCartaEnJuego() < 89){
 						mazoEnJuego[getIndiceCartaEnJuego() + 1] = manoJugador[i];
 			            player.descartarCartas(i);
-
+			            cartasEnJuego ++;
 						}
 					}  
 				}
@@ -326,7 +327,7 @@ public class Juego{
 		actual.imprimir();
 	}
 
-	public void cancelarComa (Carta cartaEnJuego){
+	public void cancelarComa (){
 		cartaEnJuego = getCartaEnJuego();
 		if (cartaEnJuego.getNumero() == -2 || cartaEnJuego.getNumero() == -3){
 			cantidadComer = 0;
@@ -334,15 +335,47 @@ public class Juego{
 
 	}
 
-	public void buscarCarta (){
-		
-		imprimirMazoEnJuego();
-		System.out.println("\nElija una carta del mazo: ");
-		int opcion = input.nextInt() -1;
-        input.nextLine(); 
-		Carta cartaBuscada = mazoEnJuego [opcion]
+	private Carta tomarCartaPila(int indice) {
+	    if (indice < 0 || indice >= cartasEnJuego || mazoEnJuego[indice] == null) {
+	        return null;
+	    }
 
-		
+	    Carta cartaTomada = mazoEnJuego[indice];
 
+	    for (int i = indice; i < cartasEnJuego - 1; i++) {
+	        mazoEnJuego[i] = mazoEnJuego[i + 1];
+	    }
+
+	    cartasEnJuego--;
+	    mazoEnJuego[cartasEnJuego] = null;
+	    
+
+	    return cartaTomada;
+	}
+
+	public void buscarCarta(Jugador jugador) {
+    	imprimirMazoEnJuego();
+
+	    System.out.println("\nElija una carta de la pila para agregar a su mano: ");
+	    int opcion = input.nextInt() - 1;
+	    //input.nextLine();  
+	    
+	    Carta cartaBuscada = tomarCartaPila(opcion);  
+
+	    if (cartaBuscada != null) {
+	        int tamanioMano = jugador.getTamanioMano();
+	        Carta[] mano = jugador.getMano();
+
+	        if (tamanioMano < mano.length) {
+	            mano[tamanioMano] = cartaBuscada;
+	            System.out.println("\nCarta agregada a tu mano correctamente");
+	        } 
+	        else {
+	            System.out.println("\nNo puedes agregar más cartas a tu mano");
+	        }
+	    } 
+	    else {
+	        System.out.println("\nCarta no válida o fuera de la pila");
+    	}
 	}
 }
