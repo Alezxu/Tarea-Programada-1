@@ -10,7 +10,7 @@ public class Juego{
 	private Jugador computadora;
 	private Mazo mazoRestante;
 	int cartasEnJuego;
-	private GUI GUI = new GUI();
+	//private GUI GUI = new GUI();
 	Scanner input = new Scanner(System.in);
 	private int comaMaximo = 0;
 	private int cantidadComer = 0;
@@ -278,7 +278,6 @@ public class Juego{
  						else {
  							System.out.println("\nError, seleccione una carta valida...\n");
  							GUI.pausa();
- 							GUI.limpiarPantalla();
  
  							System.out.println("\nElija una carta: ");
  							opcion = input.nextInt() - 1;
@@ -525,12 +524,14 @@ public class Juego{
 	    return cartaTomada;
 	}
 
+
+
 	public void buscarCarta(Jugador jugador) {
      	imprimirMazoEnJuego();
  
  	    System.out.println("\nElija una carta de la pila para agregar a su mano: ");
  	    int opcion = input.nextInt() - 1;
- 	    //input.nextLine();  
+ 	    input.nextLine();  
  	    
  	    Carta cartaBuscada = tomarCartaPila(opcion);  
  

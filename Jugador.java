@@ -17,9 +17,9 @@ public class Jugador{
 	//Imprime las cartas que tiene el jugador
 	public void imprimirJugador(){
 		int contador = 0;
-			while(manoJugador[contador] != null){
-				manoJugador[contador].imprimir();
-				contador++;
+			while (manoJugador[contador] != null) {
+        		System.out.println("" + (contador+1) + ". " + manoJugador[contador].imprimir2());
+        		contador++;
 			}
 		}
 

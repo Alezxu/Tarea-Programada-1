@@ -18,6 +18,7 @@ public class GUI{
     }
 
     public static void menuPrincipal(){
+        Juego juego = new Juego();
         boolean bandera = true;
         Scanner input = new Scanner(System.in);
         while (bandera) {
@@ -33,12 +34,11 @@ public class GUI{
                 input.nextLine(); 
                 
                 if (opcion == 1) {
-                   //LOGICA
-                    System.out.println("Single Player no implementado aún.");
+                   juego.empezarJuegoPVE();
+                   
 
                 } else if (opcion == 2) {
-                    //LOGICA
-                    System.out.println("Single Player no implementado aún.");
+                    juego.empezarJuegoPVP();
 
                 } else if (opcion == 3){
                     limpiarPantalla();
