@@ -18,8 +18,8 @@
         System.out.println("carta1 vs carta4 (diferente todo): " + carta1.comparar(carta4)); // false
 
 
-        gui.menuPrincipal();
-		//juego.empezarJuegoPVE();
+
+		GUI.menuPrincipal(); 
 
 		//System.out.println("\nCartas Jugador -  - - - - - - -  -- ");
 		//mano.cartasIniciales(mazo);
