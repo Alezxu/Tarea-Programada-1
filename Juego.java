@@ -74,7 +74,7 @@ public class Juego{
 
 			imprimirMazoEnJuego();
 
-
+			
 
 
 		}
@@ -299,6 +299,7 @@ public class Juego{
                 	if(getIndiceCartaEnJuego() < 89){
                 		mazoEnJuego[getIndiceCartaEnJuego() + 1] = manoJugador[opcion];
                 		playerActual.descartarCartas(opcion);
+                		cartasEnJuego ++;
 
                 	}
 
@@ -348,7 +349,7 @@ public class Juego{
 					if(getIndiceCartaEnJuego() < 89){
 						mazoEnJuego[getIndiceCartaEnJuego() + 1] = manoJugador[i];
 			            player.descartarCartas(i);
-
+			            cartasEnJuego ++;
 						}
 					}  
 				}
@@ -405,13 +406,19 @@ public class Juego{
 
 	}
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> e3eb24313da49e3a508b5c4b91f807e3b570ee11
 	private Carta tomarCartaPila(int indice) {
 	    if (indice < 0 || indice >= cartasEnJuego || mazoEnJuego[indice] == null) {
 	        return null;
 	    }
 
+<<<<<<< HEAD
 		
+=======
+>>>>>>> e3eb24313da49e3a508b5c4b91f807e3b570ee11
 	    Carta cartaTomada = mazoEnJuego[indice];
 
 	    for (int i = indice; i < cartasEnJuego - 1; i++) {
@@ -423,6 +430,35 @@ public class Juego{
 	    
 
 	    return cartaTomada;
+<<<<<<< HEAD
+=======
+	}
+
+	public void buscarCarta(Jugador jugador) {
+    	imprimirMazoEnJuego();
+
+	    System.out.println("\nElija una carta de la pila para agregar a su mano: ");
+	    int opcion = input.nextInt() - 1;
+	    //input.nextLine();  
+	    
+	    Carta cartaBuscada = tomarCartaPila(opcion);  
+
+	    if (cartaBuscada != null) {
+	        int tamanioMano = jugador.getTamanioMano();
+	        Carta[] mano = jugador.getMano();
+
+	        if (tamanioMano < mano.length) {
+	            mano[tamanioMano] = cartaBuscada;
+	            System.out.println("\nCarta agregada a tu mano correctamente");
+	        } 
+	        else {
+	            System.out.println("\nNo puedes agregar más cartas a tu mano");
+	        }
+	    } 
+	    else {
+	        System.out.println("\nCarta no válida o fuera de la pila");
+    	}
+>>>>>>> e3eb24313da49e3a508b5c4b91f807e3b570ee11
 	}
 
 	public void buscarCarta(Jugador jugador) {
