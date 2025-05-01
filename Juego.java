@@ -323,7 +323,7 @@ public class Juego{
 	public void cancelarComa (Carta cartaEnJuego){
 		cartaEnJuego = new Carta (getCartaEnJuego());
 		if (cartaEnJuego.getNumero() == -2 || cartaEnJuego.getNumero() == -3){
-			
+			cantidadComer = 0;
 		}
 
 	}
