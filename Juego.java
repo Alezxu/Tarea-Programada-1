@@ -40,6 +40,7 @@ public class Juego{
 
 		//Se pone la carta inicial en la mesa
 		cartaInicial();
+		boolean bandera = true;
 
 		
 		//ESTO ES DE PRUEBA
@@ -49,8 +50,17 @@ public class Juego{
 		player2.imprimirJugador();
 
 		//While que da la logica al juego, se pasa verificando si alguno de los dos jugadores se queda sin cartas, si esto pasa se acaba el juego.
-		while(!(player1.verificarVictoria(player1.getMano())) && !(player2.verificarVictoria(player2.getMano()))){
+		while(bandera){
 			//GUI.limpiarPantalla();
+
+			//if(cardPlay (player1, player2)){
+				
+			//}
+
+			//else if (cardPlay(player2, player1)){
+
+				//bandera = false;
+			//}
 
 			System.out.println("\n\nCARTA EN JUEGO");
 			imprimirCartaEnJuego();
@@ -60,7 +70,11 @@ public class Juego{
 			System.out.println("\n\nCartas JUGADOR 1");
 			player1.imprimirJugador();
 
-			cardPlay(player1 , player2);
+			if(cardPlay (player1, player2)){
+				bandera = false;
+			}
+
+			//cardPlay(player1 , player2);
 			//GUI.limpiarPantalla();
 
 			System.out.println("\n\nCARTA EN JUEGO");
@@ -70,7 +84,12 @@ public class Juego{
 
 			player2.imprimirJugador();
 
-			cardPlay(player2, player1);
+			if (cardPlay(player2, player1)){
+
+				bandera = false;
+			}
+
+			//cardPlay(player2, player1);
 
 			imprimirMazoEnJuego();
 
@@ -79,7 +98,7 @@ public class Juego{
 
 		}
 		
-		//TODO DESPUES DE AQUI ES PURAS PRUEBAS 
+		/*TODO DESPUES DE AQUI ES PURAS PRUEBAS 
 		System.out.println("\nCARTAS DESCARTADAS 1");
 		player1.descartarCartas(0).imprimir(); 
 
@@ -103,7 +122,7 @@ public class Juego{
 
 		//System.out.println("MAZO RESTANTE\n");
 		//mazoRestante.imprimir();
-
+		*/
 	}
 
 	public void empezarJuegoPVE(){
@@ -187,13 +206,19 @@ public class Juego{
 
 	//Metodo principal para jugar, se recibe un jugador como parametro, para organizar los turnos. 
 
-	public void cardPlay(Jugador playerActual , Jugador playerRival){
+	public boolean cardPlay(Jugador playerActual , Jugador playerRival){
  		try {
  
  			Carta [] manoJugador = playerActual.getMano();
  			int opcion;
  			boolean cartaValida = false;
- 
+ 			boolean jugoCarta = false;
+ 			
+
+ 			if(playerActual.verificarVictoria(playerActual.getMano())){
+ 				System.out.println("HA GANADO!");
+ 				return true;
+ 			}
  
  				if(cantidadComer > 0){
  					boolean tieneCome = false;
@@ -215,11 +240,29 @@ public class Juego{
  						System.out.println("\n\nCartas JUGADOR XX");
  						playerActual.imprimirJugador();
  						GUI.pausa();
- 						return;
+ 						return false;
  					}
  
  
  				}
+
+ 				for (int i = 0; i < playerActual.getTamanioMano(); i++) {
+    				if (manoJugador[i] != null &&
+       					(manoJugador[i].comparar(getCartaEnJuego()) || manoJugador[i].esCartaEspecial() || getCartaEnJuego().esCartaEspecial())) {
+        					jugoCarta = true;
+        					break;
+    			}
+			}
+
+
+			if(!jugoCarta) {
+				System.out.println("\nNo tiene cartas válidas... \nComiendo carta...");
+    			GUI.pausa();
+    			playerActual.coma(mazoRestante, 1);
+   			 	System.out.println("Se acaba su turno...");
+    			return false;
+			
+				}
  
  
                 System.out.println("\nElija una carta: ");
@@ -237,7 +280,6 @@ public class Juego{
  						else {
  							System.out.println("\nError, seleccione una carta valida...\n");
  							GUI.pausa();
- 							GUI.limpiarPantalla();
  
  							System.out.println("\nElija una carta: ");
  							opcion = input.nextInt() - 1;
@@ -253,6 +295,8 @@ public class Juego{
                  	if(getIndiceCartaEnJuego() < 89){
                  		mazoEnJuego[getIndiceCartaEnJuego() + 1] = manoJugador[opcion];
                  		playerActual.descartarCartas(opcion);
+                 		jugoCarta = true;
+                 		cartasEnJuego ++;
  
                  	}
  
@@ -293,8 +337,9 @@ public class Juego{
                  	if(getIndiceCartaEnJuego() < 89){
                  		mazoEnJuego[getIndiceCartaEnJuego() + 1] = manoJugador[opcion];
                  		playerActual.descartarCartas(opcion);
+                 		jugoCarta = true;
                  		cartasEnJuego ++;
- 
+
                  	}
  
  
@@ -306,7 +351,7 @@ public class Juego{
  
  
  
-                 else {//if (!(manoJugador[opcion].comparar(getCartaEnJuego())) || !(manoJugador[opcion].esCartaEspecial())){
+                 else if(!jugoCarta){//if (!(manoJugador[opcion].comparar(getCartaEnJuego())) || !(manoJugador[opcion].esCartaEspecial())){
  
                  	System.out.println("\nNo tiene cartas validas... \nComiendo carta...");
                  	GUI.pausa();
@@ -326,6 +371,8 @@ public class Juego{
                  GUI.pausa();
                  GUI.limpiarPantalla();
      		}
+
+     		return false;
  	}
 
 	
@@ -470,12 +517,14 @@ public class Juego{
 	    return cartaTomada;
 	}
 
+
+
 	public void buscarCarta(Jugador jugador) {
      	imprimirMazoEnJuego();
  
  	    System.out.println("\nElija una carta de la pila para agregar a su mano: ");
  	    int opcion = input.nextInt() - 1;
- 	    //input.nextLine();  
+ 	    input.nextLine();  
  	    
  	    Carta cartaBuscada = tomarCartaPila(opcion);  
  
