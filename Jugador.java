@@ -46,19 +46,20 @@ public class Jugador{
 
 	//Este metodo se utiliza para borrar las cartas de la mano del jugador una vez sean jugadas.
 	public Carta descartarCartas(int indice) {
-	    if (indice < 0 || indice >= manoJugador.length || manoJugador[indice] == null) {
+		int tamanio = getTamanioMano();
+	    if (indice < 0 || indice >= tamanio) {
 	        return null;  
 	    }
 
 	    Carta descartada = manoJugador[indice];
 
 	    // Mover las cartas hacia la izquierda
-	    for (int i = indice; i < manoJugador.length - 1; i++) {
+	    for (int i = indice; i < tamanio - 1; i++) {
 	        manoJugador[i] = manoJugador[i + 1];
 	    }
 
 	    // La última carta queda null
-	    manoJugador[manoJugador.length - 1] = null;
+	    manoJugador[tamanio - 1] = null;
 
 	    return descartada;
 	}
@@ -75,11 +76,12 @@ public class Jugador{
 
 
 	public void coma(Mazo mazoJugador, int cantidadPorComer){
-		for (int i = 0; i < cantidadPorComer; i++){
-			Carta cartaJugador = mazoJugador.repartirCartas(0);
+		for (int i = 0; i < cantidadPorComer ; i++){
+			Carta cartaJugador = mazoJugador.repartirCartas(i);
 			int tamanio = getTamanioMano();
 			if(tamanio < manoJugador.length){
 				manoJugador [ tamanio ] = cartaJugador;
+
 			}
 			
 		}
@@ -90,7 +92,7 @@ public class Jugador{
 		for (int i = 0; i < 3; i++){
 			Carta cartaJugador = mazoJugador.repartirCartas(0);
 			int tamanio = getTamanioMano();
-			manoJugador [ tamanio + 1 ] = cartaJugador;
+			manoJugador [ tamanio ] = cartaJugador;
 		}
 	}
 

@@ -67,6 +67,7 @@ public class Juego{
 			imprimirCartaEnJuego();
 			System.out.println("\n**TURNO PLAYER 2**");
 			System.out.println("\n\nCartas JUGADOR 2");
+
 			player2.imprimirJugador();
 
 			cardPlay(player2, player1);
@@ -150,6 +151,9 @@ public class Juego{
 
 
 		}
+
+
+		System.out.println("GANO!");
 		
 	}
 
@@ -183,11 +187,13 @@ public class Juego{
 	public void cardPlay(Jugador playerActual , Jugador playerRival){
 		try {
 
+			Carta [] manoJugador = playerActual.getMano();
+			int opcion;
+			boolean cartaValida = false;
+
 
 				if(cantidadComer > 0){
 					boolean tieneCome = false;
-					Carta [] manoJugador = playerActual.getMano();
-
 
 					for(int i = 0; i < playerActual.getTamanioMano(); i++){
 						if(manoJugador[i] != null && manoJugador[i].esCartaEspecial()){
@@ -212,27 +218,79 @@ public class Juego{
 
 				}
 
-				System.out.println("\nElija una carta: ");
-				int opcion = input.nextInt() -1;
-                input.nextLine(); 
-                Carta [] manoJugador = playerActual.getMano();
-                //if(getCartaEnJuego().esCartaEspecial()){
 
-                //}
-                if(manoJugador[opcion].comparar(getCartaEnJuego()) || manoJugador[opcion].esCartaEspecial()){
+                System.out.println("\nElija una carta: ");
+				opcion = input.nextInt() - 1;
+				input.nextLine();
+
+                while(!cartaValida){
+					
+
+					if(opcion >= 0 && opcion < playerActual.getTamanioMano()){
+						if(manoJugador[opcion].comparar(getCartaEnJuego()) || manoJugador[opcion].esCartaEspecial() || getCartaEnJuego().esCartaEspecial()){
+							cartaValida = true;
+						}
+
+						else {
+							System.out.println("\nError, seleccione una carta valida...\n");
+							GUI.pausa();
+							GUI.limpiarPantalla();
+
+							System.out.println("\nElija una carta: ");
+							opcion = input.nextInt() - 1;
+							input.nextLine();
+						}
+
+
+					} else {
+						System.out.println("\nError, seleccione una carta valida...\n");
+						GUI.pausa();
+						GUI.limpiarPantalla();
+							
+						System.out.println("\nElija una carta: ");
+						opcion = input.nextInt() - 1;
+						input.nextLine();
+					}
+
+                }
+                
+                if(getCartaEnJuego().esCartaEspecial()){
+                	
+                	if(getIndiceCartaEnJuego() < 89){
+                		mazoEnJuego[getIndiceCartaEnJuego() + 1] = manoJugador[opcion];
+                		playerActual.descartarCartas(opcion);
+
+                	}
+
+                }
+
+
+                else if(manoJugador[opcion].comparar(getCartaEnJuego()) || manoJugador[opcion].esCartaEspecial()){
+
+
 
                 	if(manoJugador[opcion].esCartaEspecial()){
                 		switch(manoJugador[opcion].getNumero()){
 
                 		case -2:
-                			comaMaximo = 2;
+                			comaMaximo = -2;
                 			cantidadComer +=2;
 						break;
 
 						case -3:
-							comaMaximo = 3;
+							comaMaximo = -3;
 							cantidadComer += 3;
 						break;
+
+
+						//case -4:
+							//CANCELAR
+						//break;
+
+
+						//case -5:
+							//BUSCAR CARTA
+						//break;
 
                 		}
 
@@ -248,8 +306,18 @@ public class Juego{
 
 
                 	
-                }  //else if() ESTO VA A SER SI NO PONE UNA CARTA VALIDA. TAMBIEN HAY QUE HACER UNA VERIFICACION SI QUIERA TIENE CARTAS VALIDAS, O SE PODRIA HACER QUE MANUALMENTE TENGA QUE DECIDIR COMER
+                }  
 
+
+               
+
+                else {//if (!(manoJugador[opcion].comparar(getCartaEnJuego())) || !(manoJugador[opcion].esCartaEspecial())){
+
+                	System.out.println("\nNo tiene cartas validas... \nComiendo carta...");
+                	GUI.pausa();
+                	playerActual.coma(mazoRestante, 1);
+                	System.out.println("Se acaba su turno...");
+                }
 
 
 
@@ -264,6 +332,9 @@ public class Juego{
                 GUI.limpiarPantalla();
     		}
 	}
+
+	
+
 
 	public void cardPlayBot(Jugador player){
 		try {
@@ -326,7 +397,7 @@ public class Juego{
 		actual.imprimir();
 	}
 
-	public void cancelarComa (Carta cartaEnJuego){
+	public void cancelarComa (){
 		cartaEnJuego = getCartaEnJuego();
 		if (cartaEnJuego.getNumero() == -2 || cartaEnJuego.getNumero() == -3){
 			cantidadComer = 0;
@@ -334,15 +405,49 @@ public class Juego{
 
 	}
 
-	public void buscarCarta (){
-		
-		imprimirMazoEnJuego();
-		System.out.println("\nElija una carta del mazo: ");
-		int opcion = input.nextInt() -1;
-        input.nextLine(); 
-		Carta cartaBuscada = mazoEnJuego [opcion]
+
+	private Carta tomarCartaPila(int indice) {
+	    if (indice < 0 || indice >= cartasEnJuego || mazoEnJuego[indice] == null) {
+	        return null;
+	    }
 
 		
+	    Carta cartaTomada = mazoEnJuego[indice];
 
+	    for (int i = indice; i < cartasEnJuego - 1; i++) {
+	        mazoEnJuego[i] = mazoEnJuego[i + 1];
+	    }
+
+	    cartasEnJuego--;
+	    mazoEnJuego[cartasEnJuego] = null;
+	    
+
+	    return cartaTomada;
 	}
-}
+
+	public void buscarCarta(Jugador jugador) {
+     	imprimirMazoEnJuego();
+ 
+ 	    System.out.println("\nElija una carta de la pila para agregar a su mano: ");
+ 	    int opcion = input.nextInt() - 1;
+ 	    //input.nextLine();  
+ 	    
+ 	    Carta cartaBuscada = tomarCartaPila(opcion);  
+ 
+ 	    if (cartaBuscada != null) {
+ 	        int tamanioMano = jugador.getTamanioMano();
+ 	        Carta[] mano = jugador.getMano();
+ 
+ 	        if (tamanioMano < mano.length) {
+ 	            mano[tamanioMano] = cartaBuscada;
+ 	            System.out.println("\nCarta agregada a tu mano correctamente");
+ 	        } 
+ 	        else {
+ 	            System.out.println("\nNo puedes agregar más cartas a tu mano");
+ 	        }
+ 	    } 
+ 	    else {
+ 	        System.out.println("\nCarta no válida o fuera de la pila");
+     	}
+ 	}
+ }
