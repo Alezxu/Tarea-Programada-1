@@ -74,7 +74,7 @@ public class Juego{
 
 			imprimirMazoEnJuego();
 
-			
+
 
 
 		}
@@ -190,6 +190,7 @@ public class Juego{
 			Carta [] manoJugador = playerActual.getMano();
 			int opcion;
 			boolean cartaValida = false;
+			boolean cartaParaJugar = false;
 
 
 				if(cantidadComer > 0){
@@ -197,8 +198,9 @@ public class Juego{
 
 					for(int i = 0; i < playerActual.getTamanioMano(); i++){
 						if(manoJugador[i] != null && manoJugador[i].esCartaEspecial()){
-							if (manoJugador[i].getNumero() == comaMaximo){
+							if (manoJugador[i].getNumero() <= comaMaximo){
 									tieneCome = true;
+									break;
 							}
 						}
 					}
@@ -223,6 +225,18 @@ public class Juego{
 				opcion = input.nextInt() - 1;
 				input.nextLine();
 
+
+				
+				/*
+				for(int i = 0; i < playerActual.getTamanioMano(); i++){
+					if(manoJugador[i] != null) {
+
+						if(getCartaEnJuego().esCartaEspecial() || manoJugador[i].comparar(getCartaEnJuego()) || manoJugador[i].esCartaEspecial()){
+							break; 
+						}
+					}
+				}*/
+
                 while(!cartaValida){
 					
 
@@ -231,10 +245,11 @@ public class Juego{
 							cartaValida = true;
 						}
 
+
 						else {
 							System.out.println("\nError, seleccione una carta valida...\n");
 							GUI.pausa();
-							GUI.limpiarPantalla();
+							
 
 							System.out.println("\nElija una carta: ");
 							opcion = input.nextInt() - 1;
@@ -245,7 +260,7 @@ public class Juego{
 					} else {
 						System.out.println("\nError, seleccione una carta valida...\n");
 						GUI.pausa();
-						GUI.limpiarPantalla();
+						
 							
 						System.out.println("\nElija una carta: ");
 						opcion = input.nextInt() - 1;
@@ -273,24 +288,30 @@ public class Juego{
                 		switch(manoJugador[opcion].getNumero()){
 
                 		case -2:
-                			comaMaximo = -2;
-                			cantidadComer +=2;
+                			if(comaMaximo == 0 || comaMaximo == -2){
+	                			comaMaximo = -2;
+	                			cantidadComer += 2;
+                			}
 						break;
 
 						case -3:
 							comaMaximo = -3;
-							cantidadComer += 3;
+							cantidadComer = cantidadComer + 3;
 						break;
 
 
-						//case -4:
-							//CANCELAR
-						//break;
+						case -4:
+							if(comaMaximo == 0 || comaMaximo == -2){
+	                			comaMaximo = -2;
+	                			cantidadComer += 2;
+                			}
+						break;
 
 
-						//case -5:
-							//BUSCAR CARTA
-						//break;
+						case -5:
+							comaMaximo = -3;
+							cantidadComer = cantidadComer + 3;
+						break;
 
                 		}
 
@@ -299,7 +320,6 @@ public class Juego{
                 	if(getIndiceCartaEnJuego() < 89){
                 		mazoEnJuego[getIndiceCartaEnJuego() + 1] = manoJugador[opcion];
                 		playerActual.descartarCartas(opcion);
-                		cartasEnJuego ++;
 
                 	}
 
@@ -349,7 +369,7 @@ public class Juego{
 					if(getIndiceCartaEnJuego() < 89){
 						mazoEnJuego[getIndiceCartaEnJuego() + 1] = manoJugador[i];
 			            player.descartarCartas(i);
-			            cartasEnJuego ++;
+
 						}
 					}  
 				}
@@ -399,26 +419,20 @@ public class Juego{
 	}
 
 	public void cancelarComa (){
-		cartaEnJuego = getCartaEnJuego();
+		Carta cartaEnJuego = getCartaEnJuego();
 		if (cartaEnJuego.getNumero() == -2 || cartaEnJuego.getNumero() == -3){
 			cantidadComer = 0;
 		}
 
 	}
 
-<<<<<<< HEAD
 
-=======
->>>>>>> e3eb24313da49e3a508b5c4b91f807e3b570ee11
 	private Carta tomarCartaPila(int indice) {
 	    if (indice < 0 || indice >= cartasEnJuego || mazoEnJuego[indice] == null) {
 	        return null;
 	    }
 
-<<<<<<< HEAD
 		
-=======
->>>>>>> e3eb24313da49e3a508b5c4b91f807e3b570ee11
 	    Carta cartaTomada = mazoEnJuego[indice];
 
 	    for (int i = indice; i < cartasEnJuego - 1; i++) {
@@ -430,35 +444,6 @@ public class Juego{
 	    
 
 	    return cartaTomada;
-<<<<<<< HEAD
-=======
-	}
-
-	public void buscarCarta(Jugador jugador) {
-    	imprimirMazoEnJuego();
-
-	    System.out.println("\nElija una carta de la pila para agregar a su mano: ");
-	    int opcion = input.nextInt() - 1;
-	    //input.nextLine();  
-	    
-	    Carta cartaBuscada = tomarCartaPila(opcion);  
-
-	    if (cartaBuscada != null) {
-	        int tamanioMano = jugador.getTamanioMano();
-	        Carta[] mano = jugador.getMano();
-
-	        if (tamanioMano < mano.length) {
-	            mano[tamanioMano] = cartaBuscada;
-	            System.out.println("\nCarta agregada a tu mano correctamente");
-	        } 
-	        else {
-	            System.out.println("\nNo puedes agregar más cartas a tu mano");
-	        }
-	    } 
-	    else {
-	        System.out.println("\nCarta no válida o fuera de la pila");
-    	}
->>>>>>> e3eb24313da49e3a508b5c4b91f807e3b570ee11
 	}
 
 	public void buscarCarta(Jugador jugador) {
