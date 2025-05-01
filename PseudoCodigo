@@ -1,0 +1,116 @@
+Pseudo Codigo:
+
+CLASE Carta:
+
+    Atributos:
+
+    número
+    color
+
+    Métodos:
+        - comparar(carta): True si tiene mismo número o color
+        - esCartaEspecial(): True si el número es -2 a -5
+        - imprimir(): muestra la carta en consola
+
+CLASE CartaEspecial:
+
+    Método asignarTipoEspecial(número):
+    	- Devuelve string según tipo de carta especial (-2 a -5)
+
+CLASE Mazo:
+
+    Atributos: 
+
+    arreglo de 88 cartas
+
+    Constructor:
+
+        - Crea 16 cartas especiales (-2 a -5)
+        - Crea 72 cartas normales (números 0-8, 4 colores, 2 copias por carta)
+        - Revuelve el mazo
+
+    Métodos:
+
+        - repartirCartas(indice): devuelve carta del mazo y ajusta el arreglo
+        - revolver(): mezcla el mazo
+        - imprimir(): muestra cartas restantes
+
+CLASE Jugador:
+
+    Atributo: 
+
+    mano (arreglo de cartas)
+
+    Métodos:
+
+        - cartasIniciales(mazo): reparte 5 cartas al jugador
+        - descartarCartas(indice): elimina carta jugada
+        - coma(mazo, num ): toma n cartas del mazo siendo n = num
+        - verificarVictoria(): True si no tiene cartas
+        - imprimirJugador(): muestra cartas de la mano
+
+CLASE Juego:
+
+    Atributos:
+
+        - mazoRestante (Mazo)
+        - mazoEnJuego (arreglo de cartas jugadas)
+        - Jugadores: player1, player2, computadora
+        - Control de las cartas especiales: comaMaximo, cantidadComer
+
+    Métodos:
+
+        - empezarJuegoPVP():
+
+            Reparte cartas y coloca carta inicial
+            Ciclo de turnos entre dos jugadores hasta que uno gana
+
+        - empezarJuegoPVE():
+
+            Igual pero contra la computadora (esta tiene turno automático)
+
+        - cartaInicial():
+
+            Saca carta inicial del mazo (no puede ser especial)
+
+        - cardPlay(jugadorActual, rival):
+
+            Verifica si puede jugar una carta válida
+            Si es especial, aplica los efectos (coma, cancelar, buscar)
+            Si no puede jugar, come 1 carta
+            Termina turno o gana si no tiene cartas
+
+        - cardPlayBot(jugadorBot):
+
+            Elige automáticamente carta válida y juega
+
+        - buscarCarta(jugador):
+
+            Jugador toma una carta del mazoEnJuego
+
+        - cancelarComa(): 
+
+        	resetea efectos de comer cartas
+
+INICIO JUEGO:
+
+    - Se crean jugadores y mazos
+    - Se reparten 5 cartas a cada jugador
+    - Se pone una carta inicial (no especial)
+
+CICLO DE JUEGO:
+
+    Mientras nadie haya ganado:
+
+        - Mostrar carta en juego
+
+        - Turno del jugador actual:
+
+            - Juega carta compatible o especial
+            - Si no tiene, come carta
+            - Si carta es especial, aplica efecto
+            - Si se queda sin cartas, gana
+
+FIN DEL JUEGO:
+
+    - Se imprime que el jugador ha ganado
