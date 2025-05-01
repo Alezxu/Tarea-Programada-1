@@ -12,6 +12,8 @@ public class Juego{
 	int cartasEnJuego;
 	private GUI GUI = new GUI();
 	Scanner input = new Scanner(System.in);
+	private int comaMaximo = 0;
+	private int cantidadComer = 0;
 
 	//Constructor
 	public Juego(){
@@ -59,6 +61,12 @@ public class Juego{
 			player1.imprimirJugador();
 
 			cardPlay(player1 , player2);
+
+			System.out.println("\n**TURNO PLAYER 2**");
+			System.out.println("\n\nCartas JUGADOR 2");
+			player2.imprimirJugador();
+
+			cardPlay(player2, player1);
 
 			
 
@@ -172,45 +180,53 @@ public class Juego{
 	//Metodo principal para jugar, se recibe un jugador como parametro, para organizar los turnos. 
 	public void cardPlay(Jugador playerActual , Jugador playerRival){
 		try {
+
+
+				if(cantidadComer > 0){
+					boolean tieneCome = false;
+					Carta [] manoJugador = playerActual.getMano();
+
+
+					for(int i = 0; i < playerActual.getTamanioMano(); i++){
+						if(manoJugador[i] != null && manoJugador[i].esCartaEspecial()){
+							if (manoJugador[i].getNumero() == comaMaximo){
+									tieneCome = true;
+							}
+						}
+					}
+
+
+					if(!tieneCome){
+						playerActual.coma(mazoRestante, cantidadComer);
+						cantidadComer = 0;
+						comaMaximo = 0;
+						return;
+					}
+					
+
+				}
+
 				System.out.println("\nElija una carta: ");
 				int opcion = input.nextInt() -1;
                 input.nextLine(); 
                 Carta [] manoJugador = playerActual.getMano();
+                if(getCartaEnJuego().esCartaEspecial()){
 
+                }
                 if(manoJugador[opcion].comparar(getCartaEnJuego()) || manoJugador[opcion].esCartaEspecial()){
 
                 	if(manoJugador[opcion].esCartaEspecial()){
                 		switch(manoJugador[opcion].getNumero()){
 
                 		case -2:
-                			int cantidadComa2 = 1;
+                			comaMaximo = 2;
+                			cantidadComer +=2;
 							if(getIndiceCartaEnJuego() < 89){
                 				mazoEnJuego[getIndiceCartaEnJuego() + 1] = manoJugador[opcion];
                 				playerActual.descartarCartas(opcion);
 
                 			}
-
-                			boolean tieneCome2 = false;
-                			Carta [] manoRival = playerRival.getMano();
-                			int tamanioRival = playerRival.getTamanioMano();
-
-                			for(int i = 0; i< tamanioRival; i++){
-                				if(manoRival[i] != null && manoRival[i].getNumero() == -2){
-                					if(getIndiceCartaEnJuego() < 89){
-                						mazoEnJuego[getIndiceCartaEnJuego() + 1] = manoRival[i];
-                						playerRival.descartarCartas(i);
-                						cantidadComa2 ++;
-                						
-
-                					}
-
-                				}
-                			}
-
-
-
-
-                			break;
+						break;
 
                 		}
 
