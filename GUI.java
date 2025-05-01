@@ -20,6 +20,7 @@ public class GUI{
     public static void menuPrincipal(){
         Juego juego = new Juego();
         boolean bandera = true;
+        boolean banderaVolver = true;
         Scanner input = new Scanner(System.in);
         while (bandera) {
         
@@ -34,11 +35,32 @@ public class GUI{
                 input.nextLine(); 
                 
                 if (opcion == 1) {
-                   juego.empezarJuegoPVE();
-                   
+                    banderaVolver = true;
+                    while(banderaVolver){
+                        juego.empezarJuegoPVE();
+
+
+                        boolean jugarOtra = volverAJugar();
+                        if(!jugarOtra){
+                            banderaVolver = false;
+                        }
+
+                   }
 
                 } else if (opcion == 2) {
-                    juego.empezarJuegoPVP();
+                    banderaVolver = true;
+                    while(banderaVolver){
+                        juego.empezarJuegoPVP();
+
+
+                        boolean jugarOtra = volverAJugar();
+                        if(!jugarOtra){
+                            banderaVolver = false;
+                        }
+
+                   }
+
+                    
 
                 } else if (opcion == 3){
                     limpiarPantalla();
@@ -59,6 +81,37 @@ public class GUI{
                 pausa();
                 limpiarPantalla();
     }
+
+
 }
 }
+
+
+    public static boolean volverAJugar(){
+        Scanner input = new Scanner(System.in);
+        try{
+           
+            System.out.println("Desea volver a jugar?\n 1: si | 0: no");
+            int opcion = input.nextInt();
+            input.nextLine(); 
+
+            if(opcion == 1){
+               return true;
+            }
+
+
+            if(opcion == 0){
+                return false;
+            }
+
+            
+
+        }  catch(InputMismatchException exception){
+                System.err.println("Opcion Incorrecta.");
+                input.nextLine();
+                pausa();
+                limpiarPantalla();
+
+    } return false;
+} 
 }

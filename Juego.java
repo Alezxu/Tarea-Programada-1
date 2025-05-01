@@ -29,6 +29,16 @@ public class Juego{
 	//Metodo para empezar un juego entre 2 jugadores
 	public void empezarJuegoPVP(){
 
+		mazoRestante = new Mazo();
+		player1 = new Jugador();
+		player2 = new Jugador();
+		mazoEnJuego = new Carta [88];
+		cartasEnJuego = 0;
+		computadora = new Jugador();
+		cantidadComer = 0;
+		comaMaximo = 0;
+
+
 		
 
 		//System.out.println("MAZO INICIAL\n"); ESTO ES PARA PRUEBAS
@@ -44,14 +54,14 @@ public class Juego{
 
 		
 		//ESTO ES DE PRUEBA
-		System.out.println("\n\nCartas JUGADOR 1");
-		player1.imprimirJugador();
-		System.out.println("\n\nCARTAS JUGADOR 2");
-		player2.imprimirJugador();
+		//System.out.println("\n\nCartas JUGADOR 1");
+		//player1.imprimirJugador();
+		//System.out.println("\n\nCARTAS JUGADOR 2");
+		//player2.imprimirJugador();
 
 		//While que da la logica al juego, se pasa verificando si alguno de los dos jugadores se queda sin cartas, si esto pasa se acaba el juego.
-		while(bandera){
-			//GUI.limpiarPantalla();
+		while(true){
+			
 
 			//if(cardPlay (player1, player2)){
 				
@@ -70,12 +80,21 @@ public class Juego{
 			System.out.println("\n\nCartas JUGADOR 1");
 			player1.imprimirJugador();
 
-			if(cardPlay (player1, player2)){
-				bandera = false;
+
+
+			if(cardPlay (player1, player2) || player1.verificarVictoria(player1.getMano())){
+				GUI.limpiarPantalla();
+				System.out.println("***HA GANADO EL JUGADOR 1***");
+				break;
 			}
 
 			//cardPlay(player1 , player2);
 			//GUI.limpiarPantalla();
+			else{
+
+				GUI.limpiarPantalla();
+			}
+			
 
 			System.out.println("\n\nCARTA EN JUEGO");
 			imprimirCartaEnJuego();
@@ -84,14 +103,19 @@ public class Juego{
 
 			player2.imprimirJugador();
 
-			if (cardPlay(player2, player1)){
+			if (cardPlay(player2, player1) || player2.verificarVictoria(player2.getMano())){
+				System.out.println("HA GANADO EL JUGADOR 2");
+				break;
+			}
 
-				bandera = false;
+
+			else{ 
+				GUI.limpiarPantalla();
 			}
 
 			//cardPlay(player2, player1);
 
-			imprimirMazoEnJuego();
+			//imprimirMazoEnJuego();
 
 
 
@@ -214,7 +238,6 @@ public class Juego{
  			
 
  			if(playerActual.verificarVictoria(playerActual.getMano())){
- 				System.out.println("HA GANADO!");
  				return true;
  			}
  
@@ -288,7 +311,7 @@ public class Juego{
  					} else {
  						System.out.println("\nError, seleccione una carta valida...\n");
  						GUI.pausa();
- 						GUI.limpiarPantalla();
+ 						
  
  						System.out.println("\nElija una carta: ");
  						opcion = input.nextInt() - 1;
