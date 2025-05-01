@@ -1,1 +1,7 @@
-ProblemasEncontrados
+Esta es la sección de Problemas Encontrados
+
+Comas: Al momento de realizar las funciones de los comas e implementarlas en el juego se nos presentaron multiples problemas, demasiados... hasta este momento solo pudimos hacer que los comas se stackearan en un par de ocasiones anoche en la madrugada, pero el hecho de que se stackearan creaba otros problemas aun mas graves. Entonces tomamos la decisión de no hacer que los comas se stackeen pero si funcionan por aparte (basicamente no se puede responder un coma 2 con un coma 3, ni un coma 3 con un coma 3, pero si se pueden utilizar correctamente).
+
+Repositorio de GitHub: El repositorio de GitHub nunca nos permitió clonarlo en Fork, de modo que el trabajo realizado no esta presente en el espacio del grupo de progra 1 equipo copper-V, no obstante solucionamos esta situación creando nuestro propio repositorio donde ha quedad registro de todo lo realizado, enviamos un mensaje por Discord hablando del problema y un correo, asi que suponemos que están enterados, la invitación al espacio de nuestro github se les enviara por correo y aqui esta el repositorio para clonar, no se si funcione pero la invitación si que está enviada. https://github.com/sergiopb06/Tarea-Programada-1.git
+
+El porcentaje de distribución sería 50% y 50% respectivamente por estudiante, ya que ambos trabajamos en gran parte la misma cantidad pero enfocados en distintas partes de la tarea programada 1.
