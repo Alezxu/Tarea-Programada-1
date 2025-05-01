@@ -50,7 +50,7 @@ public class Juego{
 
 		//While que da la logica al juego, se pasa verificando si alguno de los dos jugadores se queda sin cartas, si esto pasa se acaba el juego.
 		while(!(player1.verificarVictoria(player1.getMano())) || !(player2.verificarVictoria(player2.getMano()))){
-			GUI.limpiarPantalla();
+			//GUI.limpiarPantalla();
 
 			System.out.println("\n\nCARTA EN JUEGO");
 			imprimirCartaEnJuego();
@@ -61,7 +61,10 @@ public class Juego{
 			player1.imprimirJugador();
 
 			cardPlay(player1 , player2);
+			//GUI.limpiarPantalla();
 
+			System.out.println("\n\nCARTA EN JUEGO");
+			imprimirCartaEnJuego();
 			System.out.println("\n**TURNO PLAYER 2**");
 			System.out.println("\n\nCartas JUGADOR 2");
 			player2.imprimirJugador();
@@ -200,6 +203,10 @@ public class Juego{
 						playerActual.coma(mazoRestante, cantidadComer);
 						cantidadComer = 0;
 						comaMaximo = 0;
+						System.out.println("\nCOMIO");
+						System.out.println("\n\nCartas JUGADOR XX");
+						playerActual.imprimirJugador();
+						GUI.pausa();
 						return;
 					}
 					
@@ -210,9 +217,9 @@ public class Juego{
 				int opcion = input.nextInt() -1;
                 input.nextLine(); 
                 Carta [] manoJugador = playerActual.getMano();
-                if(getCartaEnJuego().esCartaEspecial()){
+                //if(getCartaEnJuego().esCartaEspecial()){
 
-                }
+                //}
                 if(manoJugador[opcion].comparar(getCartaEnJuego()) || manoJugador[opcion].esCartaEspecial()){
 
                 	if(manoJugador[opcion].esCartaEspecial()){
@@ -221,11 +228,7 @@ public class Juego{
                 		case -2:
                 			comaMaximo = 2;
                 			cantidadComer +=2;
-							if(getIndiceCartaEnJuego() < 89){
-                				mazoEnJuego[getIndiceCartaEnJuego() + 1] = manoJugador[opcion];
-                				playerActual.descartarCartas(opcion);
-
-                			}
+							
 						break;
 
                 		}

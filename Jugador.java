@@ -78,7 +78,10 @@ public class Jugador{
 		for (int i = 0; i < cantidadPorComer; i++){
 			Carta cartaJugador = mazoJugador.repartirCartas(0);
 			int tamanio = getTamanioMano();
-			manoJugador [ tamanio + 1 ] = cartaJugador;
+			if(tamanio < manoJugador.length){
+				manoJugador [ tamanio ] = cartaJugador;
+			}
+			
 		}
 	}
 
