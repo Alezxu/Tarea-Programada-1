@@ -4,6 +4,7 @@ import java.util.InputMismatchException;
 
 
 public class GUI{
+    Juego juego = new Juego();
 
     public static void limpiarPantalla() {
         try {
@@ -17,7 +18,7 @@ public class GUI{
         input.nextLine();
     }
 
-    public static void menuPrincipal(){
+    public void menuPrincipal(){
         boolean bandera = true;
         Scanner input = new Scanner(System.in);
         while (bandera) {
@@ -33,8 +34,7 @@ public class GUI{
                 input.nextLine(); 
                 
                 if (opcion == 1) {
-                   //LOGICA
-                    System.out.println("Single Player no implementado aún.");
+                    juego.empezarJuegoPVE();
 
                 } else if (opcion == 2) {
                     //LOGICA

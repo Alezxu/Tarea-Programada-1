@@ -2,6 +2,7 @@
 public class PruebaCarta{
 	public static void main (String [] args){
 		Juego juego = new Juego();
+		GUI gui = new GUI();
 		//Jugador mano = new Jugador();
 		//Mazo mazo = new Mazo();
 		
@@ -17,8 +18,8 @@ public class PruebaCarta{
         System.out.println("carta1 vs carta4 (diferente todo): " + carta1.comparar(carta4)); // false
 
 
-
-		juego.empezarJuegoPVE();
+        gui.menuPrincipal();
+		//juego.empezarJuegoPVE();
 
 		//System.out.println("\nCartas Jugador -  - - - - - - -  -- ");
 		//mano.cartasIniciales(mazo);
